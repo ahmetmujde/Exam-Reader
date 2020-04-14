@@ -1,0 +1,161 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
+--
+-- Anamakine: 127.0.0.1
+-- Üretim Zamanı: 14 Nis 2020, 21:55:27
+-- Sunucu sürümü: 10.4.6-MariaDB
+-- PHP Sürümü: 7.3.9
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Veritabanı: `optikoku`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `ogrtest`
+--
+
+CREATE TABLE `ogrtest` (
+  `id` int(11) NOT NULL,
+  `sinav_no` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `ogr_no` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `ogr_adi` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `test_grup` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `ogr_cevap` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `puan` varchar(250) COLLATE utf8_turkish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+--
+-- Tablo döküm verisi `ogrtest`
+--
+
+INSERT INTO `ogrtest` (`id`, `sinav_no`, `ogr_no`, `ogr_adi`, `test_grup`, `ogr_cevap`, `puan`) VALUES
+(1, '58395442546', '157146018', 'ÇELÝKEL BÜÞRA        ', 'B', 'ABBDDABBBBADADACD', '41'),
+(2, '58395442546', '157146051', 'UNCU LAMÝA           ', 'B', 'CBACDABACACBBCBCD', '82'),
+(3, '58395442546', '157146050', 'ÇELÝK BÜÞRA          ', 'B', 'ABACDDBABACBAAACB', '76'),
+(4, '58395442546', '157146074', 'GÜLER AYÞE           ', 'B', 'CBDCDDBABACBAAACD', '82'),
+(5, '58395442546', '157146012', 'HÝLALYEÞÝM BAKÇACÝ   ', 'A', 'AABADCBCBBCDADCCC', '24'),
+(6, '58395442546', '157146037', 'DÝDEM HOCAOÐLU       ', 'B', 'CBACDABACACBACACD', '94'),
+(7, '58395442546', '157146061', 'EMÝNE ÝRÝ            ', 'A', 'ABBCAAACCDACBBCCB', '76'),
+(8, '58395442546', '157146025', 'AKICI GAMZE          ', 'A', 'ABBCAADCCDACCDCBB', '76'),
+(9, '58395442546', '557146031', 'TOPAL ÜMMÜG ÜLSÜ     ', 'A', 'ABACBBD CD DCBC', '53'),
+(10, '58395442546', '157146066', 'TUBA ÖZLEM KIMIÞ     ', 'B', 'CBACBDBAACCBACBCD', '76'),
+(11, '58395442546', '157146073', 'SARP ZAHÝDE          ', 'A', 'BBBCAADCBDADDBCBB', '88'),
+(12, '58395442546', '147146007', 'AKSU BETÜL           ', 'A', 'ABBCAADCCDACABCAB', '76'),
+(13, '58395442546', '157146006', 'DAÐ GÝZEM            ', 'A', 'BBBCADDCBCACCBCBB', '71'),
+(14, '58395442546', '157146046', 'KAHRAMAN GÖZDE AYBÝKE', 'A', 'BBBCAADCC ADBBCC', '88'),
+(15, '58395442546', '157146072', 'YILMAZ EMÝNE         ', 'A', 'BBBCAADCCDADBBCBB', '100'),
+(16, '58395442546', '157146049', ' GÜL HATÝCE          ', 'A', 'DBBCABDCCDACCBCCD', '65'),
+(17, '58395442546', '157146045', 'TÜRKAN SULTAN        ', 'A', 'ADBCAAACCDDDDBCBB', '71'),
+(18, '58395442546', '157146056', 'AZÝME PEHLÝVAN       ', 'A', 'ABBCABDCCDACCBCAB', '71'),
+(19, '58395442546', '157146028', 'GAZÝ FATMANUR        ', 'B', 'CBACDDCBBACBACACD', '82'),
+(20, '58395442546', '157146039', 'KAYALI NURCAN        ', 'B', 'ABACDABBBABBADACD', '65'),
+(21, '58395442546', '157146062', 'VURAL ESMAHAN        ', 'A', 'BBBCABCCBACCDDCCB', '47'),
+(22, '58395442546', '157146014', 'DAÐLIOÐLU AYÞE       ', 'A', 'BDBCAADCCDADBBCBB', '94'),
+(23, '58395442546', '157146013', 'AYOÐLU HURÝYE ELÝF   ', 'A', 'BDDCAADCCDACABCAB', '71'),
+(24, '58395442546', '157146048', 'ÇÝY DÝLAN            ', 'B', 'ABAADDDBBCDBACACD', '59'),
+(25, '58395442546', '157146070', 'DÜNDAR FATMA         ', 'B', 'CBACDDBACACBACACD', '100'),
+(26, '58395442546', '157146027', 'ÝSAOÐULLARI BUÞRA    ', 'B', 'CBACDDBAAACBACACD', '94'),
+(27, '58395442546', '157146011', 'ÖKÇÜN MENEKÞE        ', 'B', 'CBACDABBBAABACACD', '76'),
+(28, '58395442546', '157146065', 'HATÝCE DERE          ', 'B', 'DBD DACBBACBAAAC', '50'),
+(29, '58435193290', '157146018', 'ÇELÝKEL BÜÞRA        ', 'B', 'ABBDDABBBBADADACD', '41'),
+(30, '58435193290', '157146051', 'UNCU LAMÝA           ', 'B', 'CBACDABACACBBCBCD', '82'),
+(31, '58435193290', '157146050', 'ÇELÝK BÜÞRA          ', 'B', 'ABACDDBABACBAAACB', '76'),
+(32, '58435193290', '157146074', 'GÜLER AYÞE           ', 'B', 'CBDCDDBABACBAAACD', '82'),
+(33, '58435193290', '157146012', 'HÝLALYEÞÝM BAKÇACÝ   ', 'A', 'AABADCBCBBCDADCCC', '24'),
+(34, '58435193290', '157146037', 'DÝDEM HOCAOÐLU       ', 'B', 'CBACDABACACBACACD', '94'),
+(35, '58435193290', '157146061', 'EMÝNE ÝRÝ            ', 'A', 'ABBCAAACCDACBBCCB', '76'),
+(36, '58435193290', '157146025', 'AKICI GAMZE          ', 'A', 'ABBCAADCCDACCDCBB', '76'),
+(37, '58435193290', '557146031', 'TOPAL ÜMMÜG ÜLSÜ     ', 'A', 'ABACBBD CD DCBC', '53'),
+(38, '58435193290', '157146066', 'TUBA ÖZLEM KIMIÞ     ', 'B', 'CBACBDBAACCBACBCD', '76'),
+(39, '58435193290', '157146073', 'SARP ZAHÝDE          ', 'A', 'BBBCAADCBDADDBCBB', '88'),
+(40, '58435193290', '147146007', 'AKSU BETÜL           ', 'A', 'ABBCAADCCDACABCAB', '76'),
+(41, '58435193290', '157146006', 'DAÐ GÝZEM            ', 'A', 'BBBCADDCBCACCBCBB', '71'),
+(42, '58435193290', '157146046', 'KAHRAMAN GÖZDE AYBÝKE', 'A', 'BBBCAADCC ADBBCC', '88'),
+(43, '58435193290', '157146072', 'YILMAZ EMÝNE         ', 'A', 'BBBCAADCCDADBBCBB', '100'),
+(44, '58435193290', '157146049', ' GÜL HATÝCE          ', 'A', 'DBBCABDCCDACCBCCD', '65'),
+(45, '58435193290', '157146045', 'TÜRKAN SULTAN        ', 'A', 'ADBCAAACCDDDDBCBB', '71'),
+(46, '58435193290', '157146056', 'AZÝME PEHLÝVAN       ', 'A', 'ABBCABDCCDACCBCAB', '71'),
+(47, '58435193290', '157146028', 'GAZÝ FATMANUR        ', 'B', 'CBACDDCBBACBACACD', '82'),
+(48, '58435193290', '157146039', 'KAYALI NURCAN        ', 'B', 'ABACDABBBABBADACD', '65'),
+(49, '58435193290', '157146062', 'VURAL ESMAHAN        ', 'A', 'BBBCABCCBACCDDCCB', '47'),
+(50, '58435193290', '157146014', 'DAÐLIOÐLU AYÞE       ', 'A', 'BDBCAADCCDADBBCBB', '94'),
+(51, '58435193290', '157146013', 'AYOÐLU HURÝYE ELÝF   ', 'A', 'BDDCAADCCDACABCAB', '71'),
+(52, '58435193290', '157146048', 'ÇÝY DÝLAN            ', 'B', 'ABAADDDBBCDBACACD', '59'),
+(53, '58435193290', '157146070', 'DÜNDAR FATMA         ', 'B', 'CBACDDBACACBACACD', '100'),
+(54, '58435193290', '157146027', 'ÝSAOÐULLARI BUÞRA    ', 'B', 'CBACDDBAAACBACACD', '94'),
+(55, '58435193290', '157146011', 'ÖKÇÜN MENEKÞE        ', 'B', 'CBACDABBBAABACACD', '76'),
+(56, '58435193290', '157146065', 'HATÝCE DERE          ', 'B', 'DBD DACBBACBAAAC', '50');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `test`
+--
+
+CREATE TABLE `test` (
+  `id` int(11) NOT NULL,
+  `sinav_no` varchar(11) COLLATE utf8_turkish_ci NOT NULL,
+  `test_adi` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `cevaplar` varchar(250) COLLATE utf8_turkish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+--
+-- Tablo döküm verisi `test`
+--
+
+INSERT INTO `test` (`id`, `sinav_no`, `test_adi`, `cevaplar`) VALUES
+(1, '58395442546', 'B', 'CBACDDBACACBACACD'),
+(2, '58395442546', 'A', 'BBBCAADCCDADBBCBB'),
+(3, '58435193290', 'B', 'CBACDDBACACBACACD'),
+(4, '58435193290', 'A', 'BBBCAADCCDADBBCBB');
+
+--
+-- Dökümü yapılmış tablolar için indeksler
+--
+
+--
+-- Tablo için indeksler `ogrtest`
+--
+ALTER TABLE `ogrtest`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Tablo için indeksler `test`
+--
+ALTER TABLE `test`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Dökümü yapılmış tablolar için AUTO_INCREMENT değeri
+--
+
+--
+-- Tablo için AUTO_INCREMENT değeri `ogrtest`
+--
+ALTER TABLE `ogrtest`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `test`
+--
+ALTER TABLE `test`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
