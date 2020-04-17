@@ -62,25 +62,35 @@ if($row['toplam']==0){
 
 <br><br>
 
-<div class="card border-dark " style="max-width: 18rem;">
 
-<div class="card-header">VERILERINIZ BULUNDU</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border-dark " style="max-width: 18rem;">
 
-<div class="card-body text-dark">
-    <h5 class="card-title">SINAV NUMARANIZ</h5>
-    <p class="card-text"><?php echo $sinav_no; ?></p>
+                <div class="card-header">VERILERINIZ BULUNDU</div>
+
+                <div class="card-body text-dark">
+                    <h5 class="card-title">SINAV NUMARANIZ</h5>
+                    <p class="card-text"><?php echo $sinav_no; ?></p>
+                </div>
+            </div>
+            <a href="sinavayar.php?sinavno=<?php echo $sinav_no; ?>" class="btn btn-light btn-lg active" role="button" aria-pressed="true">SINAVI AYARLA</a>
+        </div>
+    </div>
 </div>
-</div>
+<br><br>
+
 
 <div class="container">
 <div class="row">
-    <div class="col-md">
+    <div class="col-md-12">
     <br>
 <?php
 
 include("mysqlcnn.php");
 
-$sql = "select * from test where sinav_no ='".$sinav_no."'";
+$sql = "select ROW_NUMBER() OVER(ORDER BY test_adi ASC) as satir,test_adi,cevaplar from test where sinav_no ='".$sinav_no."'";
 
 $result = $conn->query($sql);
 
@@ -99,13 +109,14 @@ if ($result->num_rows > 0) { ?>
     <tbody>
         <tr>
         <?php
-        //kod girisi ile test verilerini uazdırma
+        //kod girisi ile test verilerini Yazdırma
 
-        while($row = $result->fetch_assoc()) {
-            echo '<th scope="row">'.$row["id"].'</th>';
-            echo '<td>'.$row["test_adi"].'</td>';
-            echo '<td>'.$row["cevaplar"].'</td></tr>';
-        }  
+            while($row = $result->fetch_assoc()) {
+                echo '<th scope="row">'.$row["satir"].'</th>';
+                echo '<td>'.$row["test_adi"].'</td>';
+                echo '<td>'.$row["cevaplar"].'</td></tr>';
+            }  
+        }
         ?>
 
     </tbody> 
@@ -114,7 +125,6 @@ if ($result->num_rows > 0) { ?>
 <br><br>
 
 <?php
-}
 
 $sql = "select * from ogrtest where sinav_no ='".$sinav_no."'";
 
@@ -152,7 +162,7 @@ if ($result->num_rows > 0) {?>
     </tbody>
 </table>
 
-<?php }  //if in artan parantezi :d ?> 
+<?php }  //if in artan parantezi ?> 
 
     </div>
   </div>
