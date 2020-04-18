@@ -1,5 +1,5 @@
 
-<?PHP  include("mysqlcnn.php"); ?>
+<?PHP  include("mysqlcnn.php"); ob_start(); ?>
 
 <!DOCTYPE html>
 <html lang="tr">
@@ -24,7 +24,23 @@
 <style> 
 .uzunluk {
   width: 3%;
+  padding-left:6px;
+  margin:6px 6px 6px 0px;
+  border-radius:4px;
+  font-style:italic;
+  border-color:#5db7de;
+
 }
+.cevapEkle{
+    background-color:#5db7de;
+    color:white;
+    border-radius:0 5px 5px 0;
+    text-align:center;
+    line-height:1.2;
+    padding:1px;
+    
+}
+
 </style>
 <body>
 
@@ -88,13 +104,13 @@
                             echo '<td>';
                             for($i=0; $i<strlen($row["cevaplar"]); $i++)
                             {   
-                                echo ($i+1).'<input class="uzunluk" type="text" name="'.$row["test_adi"].'[]" value="'.$row["cevaplar"][$i].'">';
+                                echo ($i+1).'-<input class="uzunluk" type="text" name="'.$row["test_adi"].'[]" value="'.$row["cevaplar"][$i].'">';
                             }
                             echo '<div id="alan'.$row["test_adi"].'"/></td>';
                             echo '<td>
                                     <div class="d-flex justify-content-start">
                                     <input style="width:80px;" type="text" id="member'.$row["test_adi"].'" name="member'.$row["test_adi"].'" value="">
-                                    <a href="#" id="cevapekle'.$row["test_adi"].'" onclick="ekle'.$row["test_adi"].'()">Cevap Ekle</a>
+                                    <a href="#" class="cevapEkle" id="cevapekle'.$row["test_adi"].'" onclick="ekle'.$row["test_adi"].'()">Cevap Ekle</a>
                                     </div>
                                   </td></tr>';
                             /**java script işlemleri */
@@ -112,6 +128,7 @@
                                           var input = document.createElement("input");
                                           input.type = "text";
                                           input.name ="'.$row["test_adi"].'[]";
+                                          input.className="uzunluk";
                                           input.style="width:3%";
                                           alan.appendChild(input);
                                       }
@@ -135,32 +152,35 @@
     </div>
 
     <?php
+    
         if(isset($_POST['guncelle']))
         {
+            $cevaplar="";
+
             $sinav_no=$_POST["sinavno"];
 
-            echo $sinav_no;
-
-            $sql = "select ROW_NUMBER() OVER(ORDER BY test_adi ASC) as satir,test_adi,cevaplar from test where sinav_no ='".$sinav_no."'";
+            $sql = "select test_adi,cevaplar from test where sinav_no ='".$sinav_no."'";
 
             $result = $conn->query($sql);
 
-            while($row = $result->fetch_assoc()) {
-                foreach($_POST[$row["test_adi"]] as $i) {
+            if ($result->num_rows > 0) { 
+                while($row = $result->fetch_assoc()) {
+                    foreach($_POST[$row["test_adi"]] as $i) {
+                        
+                        $cevaplar .= $i;                            
+                    }
                     
-                    $cevaplar .= $i;                            
+                    $kod = 'update test set cevaplar="'.$cevaplar.'" where test_adi="'.$row["test_adi"].'" and sinav_no="'.$sinav_no.'"';
+                    $isle= $conn->prepare($kod);
+                    $isle->execute();
+                    $cevaplar="";
+
                 }
-                
-                $kod = 'update test set cevaplar="'.$cevaplar.'" where test_adi="'.$row["test_adi"].'" and sinav_no="'.$sinav_no.'"';
-                $isle= $conn->prepare($kod);
-                $isle->execute();
-                $cevaplar="";
-
             }
-
+            
             $url= "sinavayar.php?sinavno=$sinav_no";
-
-            exit(header("Location: $url"));
+            header("Location:$url");
+            ob_end_flush();
         }
 
     ?>
