@@ -1,6 +1,41 @@
 
-<?PHP   include("mysqlcnn.php"); ob_start();
-        header('Content-Type: text/html; charset=ISO-8859-9');
+<?PHP   
+    include("mysqlcnn.php"); ob_start();
+    header('Content-Type: text/html; charset=ISO-8859-9');
+
+    
+    if(isset($_POST['kaydet']))
+    {   
+        // ogr test kitapçıklarını günceleme 
+
+        $cevaplar="";
+
+        $sinav_no=$_POST["sinavno"];
+
+        $sql = "select ogr_no,ogr_adi,test_grup,ogr_cevap from ogrtest where sinav_no ='".$sinav_no."'";
+
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) { 
+            while($row = $result->fetch_assoc()) {
+                foreach($_POST[$row["ogr_no"]] as $i) {
+                    
+                    $cevaplar .= $i;                            
+                }
+                
+                $kod = 'update ogrtest  set ogr_cevap="'.$cevaplar.'" where ogr_no="'.$row["ogr_no"].'" and sinav_no="'.$sinav_no.'"';
+                $isle= $conn->prepare($kod);
+                $isle->execute();
+                $cevaplar="";
+
+            }
+        }
+        
+        $url= "ogrenciayar.php?sinavno=$sinav_no";
+        header("Location:$url");
+        ob_end_flush();
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -149,46 +184,6 @@
         </div>
         </form>
         <br>
-        <br>
-        
-
-          <?php
-        
-            if(isset($_POST['kaydet']))
-            {   
-                // test kitapçıklarını günceleme 
-
-                ECHO 'SELAM';
-
-                $cevaplar="";
-
-                $sinav_no=$_POST["sinavno"];
-
-                $sql = "select ogr_no,ogr_adi,test_grup,ogr_cevap from ogrtest where sinav_no ='".$sinav_no."'";
-
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) { 
-                    while($row = $result->fetch_assoc()) {
-                        foreach($_POST[$row["ogr_no"]] as $i) {
-                            
-                            $cevaplar .= $i;                            
-                        }
-                        echo $cevaplar;
-                        /*
-                        $kod = 'update test set cevaplar="'.$cevaplar.'" where test_adi="'.$row["test_adi"].'" and sinav_no="'.$sinav_no.'"';
-                        $isle= $conn->prepare($kod);
-                        $isle->execute();*/
-                        $cevaplar="";
-
-                    }
-                }
-                
-                $url= "ogrenciayar.php?sinavno=$sinav_no";
-                header("Location:$url");
-                ob_end_flush();
-            }
-
-        ?>                    
+        <br>                  
     </div>
 </div>
