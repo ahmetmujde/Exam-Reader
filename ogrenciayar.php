@@ -1,5 +1,7 @@
 
-<?PHP  include("mysqlcnn.php"); ob_start(); ?>
+<?PHP   include("mysqlcnn.php"); ob_start();
+        header('Content-Type: text/html; charset=ISO-8859-9');
+?>
 
 <!DOCTYPE html>
 <html lang="tr">
@@ -28,11 +30,11 @@
   margin:6px 6px 6px 0px;
   border-radius:4px;
   font-style:italic;
-  border-color:#5db7de;
+  border-color:#2EB32E;
 
 }
 .cevapEkle{
-    background-color:#5db7de;
+    background-color:#75FF75;
     color:white;
     border-radius:0 5px 5px 0;
     text-align:center;
@@ -63,70 +65,70 @@
 </nav>
 
 <br><br>
-<div class="container">
+
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-        <form method="post" name="" id="form1">
-            <?php
+            <form method="post" name="" id="form1">
+                <?php
+                    $sinav_no=$_GET["sinavno"];
+                    
+                    echo '<input name="sinavno" type="hidden" value="'.$sinav_no.'">';
 
-                $sinav_no=$_GET["sinavno"];
+                    $sql = "select ogr_no,ogr_adi,test_grup,ogr_cevap from ogrtest where sinav_no ='".$sinav_no."' ORDER BY test_grup ASC";
 
-                echo '<input name="sinavno" type="hidden" value="'.$sinav_no.'">';
+                    $result = $conn->query($sql);
 
-                $sql = "select ROW_NUMBER() OVER(ORDER BY test_adi ASC) as satir,test_adi,cevaplar from test where sinav_no ='".$sinav_no."'";
+                    //Ögrenci teslerini yazdırma
 
-                $result = $conn->query($sql);
-
-                //KİTAPCİK(Test) İSLEMLERİ YAZDIRMA
-
-                if ($result->num_rows > 0) { ?>
-                
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">GRUP ADI </th>
-                        <th scope="col">TEST CEVAPLARI</th>
-                        <th scope="col">CEVAP EKLE</th>
-                        </tr>
-                    </thead>
-                        
-                    <tbody>
-                        <tr>
-                    <?php
-                    //kod girisi ile test verilerini Yazdırma
+                    if ($result->num_rows > 0) { ?>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                <th scope="col">OGR NO</th>
+                                <th scope="col">OGR ADI</th>
+                                <th scope="col">GRUP NO</th>
+                                <th scope="col">CEVAPLAR</th>
+                                <th scope="col">CEVAP EKLE</th>
+                                </tr>
+                            </thead>
+                        <tbody>
+                            <tr>
+                            <?php
+                        //kod girisi ile test verilerini Yazdırma
                             
                         while($row = $result->fetch_assoc()) {
                             
-                            echo '<td scope="row">'.$row["satir"].'</td>';
-                            echo '<td>'.$row["test_adi"].'</td>';
+                            echo '<td scope="row">'.$row["ogr_no"].'</td>';
+                            echo '<td>'.$row["ogr_adi"].'</td>';
+                            echo '<td>'.$row["test_grup"].'</td>';
                             echo '<td>';
-                            for($i=0; $i<strlen($row["cevaplar"]); $i++)
+                            for($i=0; $i<strlen($row["ogr_cevap"]); $i++)
                             {   
-                                echo ($i+1).'-<input class="uzunluk" type="text" name="'.$row["test_adi"].'[]" value="'.$row["cevaplar"][$i].'">';
+                                echo ($i+1).'-<input class="uzunluk" type="text" name="'.$row["ogr_no"].'[]" value="'.$row["ogr_cevap"][$i].'">';
                             }
-                            echo '<div id="alan'.$row["test_adi"].'"/></td>';
+                            echo '<div id="alan'.$row["ogr_no"].'"/></td>';
                             echo '<td>
                                     <div class="d-flex justify-content-start">
-                                    <input style="width:80px;" type="text" id="member'.$row["test_adi"].'" name="member'.$row["test_adi"].'" value="">
-                                    <a href="#" class="cevapEkle" id="cevapekle'.$row["test_adi"].'" onclick="ekle'.$row["test_adi"].'()">Cevap Ekle</a>
+                                    <input style="width:80px;" type="text" id="member'.$row["ogr_no"].'" name="member'.$row["ogr_no"].'" value="">
+                                    <a href="#" class="cevapEkle" id="cevapekle'.$row["ogr_no"].'" onclick="ekle'.$row["ogr_no"].'()">Cevap Ekle</a>
                                     </div>
                                   </td></tr>';
                             /**java script işlemleri */
 
                             echo '<script >
-                            function ekle'.$row["test_adi"].'(){
-                                      var number = document.getElementById("member'.$row["test_adi"].'").value;
-                                      var alan = document.getElementById("alan'.$row["test_adi"].'");
+                            function ekle'.$row["ogr_no"].'(){
+                                      var number = document.getElementById("member'.$row["ogr_no"].'").value;
+                                      var alan = document.getElementById("alan'.$row["ogr_no"].'");
                                       while (alan.hasChildNodes()) {
                                           alan.removeChild(alan.lastChild);
                                       }
 
-                                      for (i='.strlen($row["cevaplar"]).';i<'.strlen($row["cevaplar"]).'+Number(number);i++){
+                                      for (i='.strlen($row["ogr_cevap"]).';i<'.strlen($row["ogr_cevap"]).'+Number(number);i++){
                                           alan.appendChild(document.createTextNode((i+1)));
                                           var input = document.createElement("input");
                                           input.type = "text";
-                                          input.name ="'.$row["test_adi"].'[]";
+                                          input.name ="'.$row["ogr_no"].'[]";
                                           input.className="uzunluk";
                                           input.style="width:3%";
                                           alan.appendChild(input);
@@ -139,46 +141,54 @@
                     
             </tbody> 
         </table>
+        
+
+        </br>
         <div class="d-flex justify-content-center">
-            <button type="submit" form="form1" name="guncelle" class="btn btn-primary btn-lg">KAYDET</button>
+            <button type="submit" form="form1" name="kaydet" class="btn btn-primary btn-lg">KAYDET</button>
         </div>
         </form>
-
-        <?php
+        <br>
+        <br>
         
-            if(isset($_POST['guncelle']))
+
+          <?php
+        
+            if(isset($_POST['kaydet']))
             {   
                 // test kitapçıklarını günceleme 
+
+                ECHO 'SELAM';
 
                 $cevaplar="";
 
                 $sinav_no=$_POST["sinavno"];
 
-                $sql = "select test_adi,cevaplar from test where sinav_no ='".$sinav_no."'";
+                $sql = "select ogr_no,ogr_adi,test_grup,ogr_cevap from ogrtest where sinav_no ='".$sinav_no."'";
 
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) { 
                     while($row = $result->fetch_assoc()) {
-                        foreach($_POST[$row["test_adi"]] as $i) {
+                        foreach($_POST[$row["ogr_no"]] as $i) {
                             
                             $cevaplar .= $i;                            
                         }
-                        
+                        echo $cevaplar;
+                        /*
                         $kod = 'update test set cevaplar="'.$cevaplar.'" where test_adi="'.$row["test_adi"].'" and sinav_no="'.$sinav_no.'"';
                         $isle= $conn->prepare($kod);
-                        $isle->execute();
+                        $isle->execute();*/
                         $cevaplar="";
 
                     }
                 }
                 
-                $url= "sinavayar.php?sinavno=$sinav_no";
+                $url= "ogrenciayar.php?sinavno=$sinav_no";
                 header("Location:$url");
                 ob_end_flush();
             }
 
-        ?>
-  </div>
+        ?>                    
+    </div>
 </div>
-

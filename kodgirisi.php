@@ -63,19 +63,31 @@ if($row['toplam']==0){
 <br><br>
 
 
+
+<div class="card border-dark " style="max-width: 18rem;">
+
+    <div class="card-header">VERILERINIZ BULUNDU</div>
+
+    <div class="card-body text-dark">
+        <h5 class="card-title">SINAV NUMARANIZ</h5>
+        <p class="card-text"><?php echo $sinav_no; ?></p>
+    </div>
+</div>
+
+
+<br><br>
+
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <div class="card border-dark " style="max-width: 18rem;">
-
-                <div class="card-header">VERILERINIZ BULUNDU</div>
-
-                <div class="card-body text-dark">
-                    <h5 class="card-title">SINAV NUMARANIZ</h5>
-                    <p class="card-text"><?php echo $sinav_no; ?></p>
-                </div>
+        <div class="col-md">
+            <div class="d-flex justify-content-around">
+                <span>
+                    <a href="sinavayar.php?sinavno=<?php echo $sinav_no; ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">SINAVI AYARLA</a>
+                </span>
+                <span>
+                    <a href="ogrenciayar.php?sinavno=<?php echo $sinav_no; ?>" class="btn btn-success btn-lg active" role="button" aria-pressed="true">OGRENCI AYARLA</a>
+                </span>
             </div>
-            <a href="sinavayar.php?sinavno=<?php echo $sinav_no; ?>" class="btn btn-light btn-lg active" role="button" aria-pressed="true">SINAVI AYARLA</a>
         </div>
     </div>
 </div>
@@ -126,7 +138,7 @@ if ($result->num_rows > 0) { ?>
 
 <?php
 
-$sql = "select * from ogrtest where sinav_no ='".$sinav_no."'";
+$sql = "select * from ogrtest where sinav_no ='".$sinav_no."' ORDER BY ogr_no ASC ";
 
 $result = $conn->query($sql);
 
