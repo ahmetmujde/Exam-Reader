@@ -26,7 +26,6 @@ $puanlar=array();
 $say1=0;
 $say2=0;
 $say3=0;
-$say4=0;
 //verileri okuma 
 foreach(explode(PHP_EOL, $dosya_oku) as $satir)
 { 
@@ -59,20 +58,12 @@ for ($i=0; $i <count($veriler) ; $i++)
         $ogrno[$i]=substr($veriler[$i],0,9);      //9 birimlik ogr no
         $ogrtestgrp[$i]=substr($veriler[$i],9,1); //1 birimlik ogr test grupno
         $ogradi[$i]=substr($veriler[$i],10,21);   //20 birimlik ogr isim soyisim
-        $say4=0;
-        
-        for ($j=31; $j <strlen($veriler[$i]) ; $j++) { 
-            if($veriler[$i][$j]!==" "){
-                $say4++;
-            }
-        }
-
-        $ogrcevap[$i]=substr($veriler[$i],31,$say4); //20 birimlik test cevap anahtarı 
+        $ogrcevap[$i]=substr($veriler[$i],31,$say3);
     }
 }
 
     
-//txt dosyasindan alinan test kitapçiklarini ayirmak için for $say3= round($say3/$say2);
+//txt dosyasindan alinan test kitapçiklarini ayirmak için 
 
 for ($i=0; $i <count($tstgrpsatir); $i++) { 
     for ($j=0; $j <strlen($tstgrpsatir[$i]);  $j++) { 
@@ -89,7 +80,7 @@ for ($j=0; $j <count($testcevaplari); $j++)
     for ($i=$say2; $i <=count($ogrcevap); $i++) 
     { 
         
-        if ($ogrtestgrp[$i]==$tstgrpadi[$j]) 
+        if ($ogrtestgrp[$i]==$tstgrpadi[$j]) //grup kontrolü
         {
             $no=array_search($tstgrpadi[$j], $tstgrpadi);
 
@@ -98,11 +89,18 @@ for ($j=0; $j <count($testcevaplari); $j++)
             for ($k=0; $k <strlen($ogrcevap[$i]) ; $k++) { 
                 
                 if ($testcevaplari[$no][$k]==$ogrcevap[$i][$k]) {
-                    $puansay+=100/strlen($ogrcevap[$i]);
+                    $puansay+=100/strlen($testcevaplari[$no]);
                 }
+            
 
             }
-            $puanlar[$i]=round($puansay);
+            if(round($puansay)>100){
+                $puanlar[$i]="100";
+            }
+            else{
+                $puanlar[$i]=round($puansay);
+            }
+          
         }
 
     }

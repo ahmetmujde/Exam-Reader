@@ -24,7 +24,7 @@ if("txt"==substr($dsyadi,-3)) //uzantı kontrol
 
 if(!empty($tstgrpadi)){
 
-    //şimdiki tarih ve 4 basamaklı rasgele bir sayi ile kullanıcıya tekrar girmesi icin sifre veriyoruz...
+    //şimdiki tarih ve 2 basamaklı rasgele bir sayi ile kullanıcıya tekrar girmesi icin sifre veriyoruz...
     $rdm_sayi =  strtotime(date("Y-m-d H:i:s")).rand(10,99); 
     $sinav_no = substr($rdm_sayi,1,11);
     settype($sinav_no,"string");
@@ -78,9 +78,13 @@ if(!empty($tstgrpadi)){
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse" id="navbar10">
-            <ul class="navbar-nav nav-fill w-100">
+        <ul class="navbar-nav nav-fill">
+                <li class="nav-item active">
+                    <a class="navbar-brand text-center" href="index.php"> <i class="fas fa-file-download">&nbsp;&nbsp;</i>OPTIK OKUT  <span class="sr-only">(current)</span></a>
+                </li>
+
                 <li class="nav-item">
-                <a class="navbar-brand text-center" href="index.php"> <i class="fas fa-file-download">&nbsp;&nbsp;</i>OPTIK OKUT </a>
+                    <a href="yardim.php" class="nav-link">YARDIM</a>
                 </li>
             </ul>
         </div>

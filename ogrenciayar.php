@@ -1,6 +1,8 @@
 
 <?PHP   
-    include("mysqlcnn.php"); ob_start();
+    include("mysqlcnn.php");
+    error_reporting(0);
+     ob_start();
     header('Content-Type: text/html; charset=ISO-8859-9');
 
     
@@ -20,7 +22,7 @@
             while($row = $result->fetch_assoc()) {
                 foreach($_POST[$row["ogr_no"]] as $i) {
                     
-                    $cevaplar .= $i;                            
+                    $cevaplar .= strtoupper($i);                            
                 }
                 
                 $kod = 'update ogrtest  set ogr_cevap="'.$cevaplar.'" where ogr_no="'.$row["ogr_no"].'" and sinav_no="'.$sinav_no.'"';
@@ -90,9 +92,20 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse" id="navbar10">
-            <ul class="navbar-nav nav-fill w-100">
+        <ul class="navbar-nav nav-fill">
+                <li class="nav-item active">
+                    <a class="navbar-brand text-center" href="index.php"> <i class="fas fa-file-download">&nbsp;&nbsp;</i>OPTIK OKUT  <span class="sr-only">(current)</span></a>
+                </li>
+
                 <li class="nav-item">
-                <a class="navbar-brand text-center" href="index.php"> <i class="fas fa-file-download">&nbsp;&nbsp;</i>OPTIK OKUT </a>
+                    <a href="kodgirisi.php?sinavno=<?php echo $_GET["sinavno"]; ?>" class="nav-link">ANASAYFA</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="sinavayar.php?sinavno=<?php echo $_GET["sinavno"]; ?>" class="nav-link">SINAVI AYARLA</a>
+                </li>
+                <li class="nav-item">
+                <a href="ogrenciayar.php?sinavno=<?php echo $_GET["sinavno"]; ?>" class="nav-link">OGRENCI AYARLA</a>
                 </li>
             </ul>
         </div>
@@ -110,7 +123,7 @@
                     
                     echo '<input name="sinavno" type="hidden" value="'.$sinav_no.'">';
 
-                    $sql = "select ogr_no,ogr_adi,test_grup,ogr_cevap from ogrtest where sinav_no ='".$sinav_no."' ORDER BY test_grup ASC";
+                    $sql = "select ogr_no,ogr_adi,test_grup,ogr_cevap from ogrtest where sinav_no ='".$sinav_no."'ORDER BY ogr_no ASC";
 
                     $result = $conn->query($sql);
 
@@ -140,7 +153,7 @@
                             echo '<td>';
                             for($i=0; $i<strlen($row["ogr_cevap"]); $i++)
                             {   
-                                echo ($i+1).'-<input class="uzunluk" type="text" name="'.$row["ogr_no"].'[]" value="'.$row["ogr_cevap"][$i].'">';
+                                echo ($i+1).'-<input class="uzunluk" type="text" name="'.$row["ogr_no"].'[]" value="'.$row["ogr_cevap"][$i].'" maxlength="1">';
                             }
                             echo '<div id="alan'.$row["ogr_no"].'"/></td>';
                             echo '<td>
@@ -166,6 +179,7 @@
                                           input.name ="'.$row["ogr_no"].'[]";
                                           input.className="uzunluk";
                                           input.style="width:3%";
+                                          input.maxLength=1;
                                           alan.appendChild(input);
                                       }
                                   }
@@ -180,7 +194,8 @@
 
         </br>
         <div class="d-flex justify-content-center">
-            <button type="submit" form="form1" name="kaydet" class="btn btn-primary btn-lg">KAYDET</button>
+                    
+            <button type="submit" form="form1" name="kaydet" class="btn btn-success btn-lg">KAYDET</button>
         </div>
         </form>
         <br>

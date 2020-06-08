@@ -27,11 +27,14 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse" id="navbar10">
-            <ul class="navbar-nav nav-fill w-100">
-                <li class="nav-item">
-                <a class="navbar-brand text-center" href="index.php"> <i class="fas fa-file-download">&nbsp;&nbsp;</i>OPTİK OKUT </a>
+            <ul class="navbar-nav nav-fill">
+                <li class="nav-item active">
+                    <a class="navbar-brand text-center" href="index.php"> <i class="fas fa-file-download">&nbsp;&nbsp;</i>OPTIK OKUT  <span class="sr-only">(current)</span></a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="yardim.php" class="nav-link">YARDIM</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -70,7 +73,7 @@
                 Seçetiginiz dosyanızın içerigi yandaki görseldeki gibi olmalıdır. <br> <br>
                 İlk önce test ile ilgili islemleri yapıp ardından ögrenci  islemleri yapmalısınız.
             </h3>
-
+            
         </div>
         <br>
         <div class="col-md-6">
@@ -79,6 +82,8 @@
 
     </div>
 </div>
+
+
 <hr>
 
 <script src="js/jquery-3.4.1.js"></script>

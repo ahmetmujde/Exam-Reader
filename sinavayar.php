@@ -1,5 +1,43 @@
 
-<?PHP  include("mysqlcnn.php"); ob_start(); ?>
+<?PHP  
+include("mysqlcnn.php");
+error_reporting(0); 
+ob_start(); 
+
+        
+if(isset($_POST['guncelle']))
+{   
+    // test kitapçıklarını günceleme 
+
+    $cevaplar="";
+
+    $sinav_no=$_POST["sinavno"];
+
+    $sql = "select test_adi,cevaplar from test where sinav_no ='".$sinav_no."'";
+
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) { 
+        while($row = $result->fetch_assoc()) {
+            foreach($_POST[$row["test_adi"]] as $i) {
+                
+                $cevaplar .= strtoupper($i);
+            }
+            
+            $kod = 'update test set cevaplar="'.$cevaplar.'" where test_adi="'.$row["test_adi"].'" and sinav_no="'.$sinav_no.'"';
+            $isle= $conn->prepare($kod);
+            $isle->execute();
+            $cevaplar="";
+
+        }
+    }
+    
+    $url= "sinavayar.php?sinavno=$sinav_no";
+    header("Location:$url");
+    ob_end_flush();
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="tr">
@@ -53,16 +91,28 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse" id="navbar10">
-            <ul class="navbar-nav nav-fill w-100">
+        <ul class="navbar-nav nav-fill">
+                <li class="nav-item active">
+                    <a class="navbar-brand text-center" href="index.php"> <i class="fas fa-file-download">&nbsp;&nbsp;</i>OPTIK OKUT  <span class="sr-only">(current)</span></a>
+                </li>
+                
                 <li class="nav-item">
-                <a class="navbar-brand text-center" href="index.php"> <i class="fas fa-file-download">&nbsp;&nbsp;</i>OPTIK OKUT </a>
+                    <a href="kodgirisi.php?sinavno=<?php echo $_GET["sinavno"]; ?>" class="nav-link">ANASAYFA</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="sinavayar.php?sinavno=<?php echo $_GET["sinavno"]; ?>" class="nav-link">SINAVI AYARLA</a>
+                </li>
+                
+                <li class="nav-item">
+                <a href="ogrenciayar.php?sinavno=<?php echo $_GET["sinavno"]; ?>" class="nav-link">OGRENCI AYARLA</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<br><br>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -103,7 +153,7 @@
                             echo '<td>';
                             for($i=0; $i<strlen($row["cevaplar"]); $i++)
                             {   
-                                echo ($i+1).'-<input class="uzunluk" type="text" name="'.$row["test_adi"].'[]" value="'.$row["cevaplar"][$i].'">';
+                                echo ($i+1).'-<input class="uzunluk" type="text" name="'.$row["test_adi"].'[]" value="'.$row["cevaplar"][$i].'" maxlength="1">';
                             }
                             echo '<div id="alan'.$row["test_adi"].'"/></td>';
                             echo '<td>
@@ -129,6 +179,7 @@
                                           input.name ="'.$row["test_adi"].'[]";
                                           input.className="uzunluk";
                                           input.style="width:3%";
+                                          input.maxLength=1;
                                           alan.appendChild(input);
                                       }
                                   }
@@ -143,42 +194,6 @@
             <button type="submit" form="form1" name="guncelle" class="btn btn-primary btn-lg">KAYDET</button>
         </div>
         </form>
-
-        <?php
-        
-            if(isset($_POST['guncelle']))
-            {   
-                // test kitapçıklarını günceleme 
-
-                $cevaplar="";
-
-                $sinav_no=$_POST["sinavno"];
-
-                $sql = "select test_adi,cevaplar from test where sinav_no ='".$sinav_no."'";
-
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) { 
-                    while($row = $result->fetch_assoc()) {
-                        foreach($_POST[$row["test_adi"]] as $i) {
-                            
-                            $cevaplar .= $i;                            
-                        }
-                        
-                        $kod = 'update test set cevaplar="'.$cevaplar.'" where test_adi="'.$row["test_adi"].'" and sinav_no="'.$sinav_no.'"';
-                        $isle= $conn->prepare($kod);
-                        $isle->execute();
-                        $cevaplar="";
-
-                    }
-                }
-                
-                $url= "sinavayar.php?sinavno=$sinav_no";
-                header("Location:$url");
-                ob_end_flush();
-            }
-
-        ?>
   </div>
 </div>
 

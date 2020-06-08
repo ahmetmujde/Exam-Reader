@@ -148,15 +148,15 @@ align-items: center;
 }
 
 .swiper-slide:nth-child(1) .sliderText{
-	background: #AE40FF;
+	background: #3477B3;
 }
 
 .swiper-slide:nth-child(2) .sliderText{
-	background: #6F3AE8;
+	background: #3477B3;
 }
 
 .swiper-slide:nth-child(3) .sliderText{
-	background: #3A62E8;
+	background: #63B6FF;
 }
 
 

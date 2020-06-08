@@ -1,7 +1,7 @@
 <?php 
 
 if(isset($_GET["script"])=="on"){
-
+    error_reporting(0);
     echo "<script>alert('Sizin Zaten Bir Kodunuz Var ')</script>";
 }
 
@@ -37,11 +37,14 @@ if(isset($_GET["script"])=="on"){
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse" id="navbar10">
-            <ul class="navbar-nav nav-fill w-100">
-                <li class="nav-item">
-                <a class="navbar-brand text-center" href="index.php"> <i class="fas fa-file-download">&nbsp;&nbsp;</i>OPTİK OKUT </a>
+            <ul class="navbar-nav nav-fill">
+                <li class="nav-item active">
+                    <a class="navbar-brand text-center" href="index.php"> <i class="fas fa-file-download">&nbsp;&nbsp;</i>OPTIK OKUT  <span class="sr-only">(current)</span></a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="yardim.php" class="nav-link">YARDIM</a>
+                </li>
             </ul>
         </div>
     </div>
