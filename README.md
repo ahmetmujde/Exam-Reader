@@ -1,2 +1,2 @@
-## PHP OPTİK OKUYUCU
-### Bu projeyi arkadaşım korayla birlikte git-hub a yükledik.
+## PHP Optical character recognition 
+### This projeckt is Optical character recognition for lesson's exams.
